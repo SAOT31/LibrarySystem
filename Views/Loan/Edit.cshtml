@@ -1,0 +1,49 @@
+﻿@model LibrarySystem.Models.Loan
+
+@{
+    ViewData["Title"] = "Edit Loan Record";
+}
+
+<div class="container mt-4">
+    <h2>Edit Loan</h2>
+
+    <form action="/Loan/Edit" method="post" class="mt-4" style="max-width: 500px;">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Select User</label>
+            <select name="UserId" class="form-select" required>
+                @foreach (var user in ViewBag.Users)
+                {
+                    <option value="@user.Id" selected="@(user.Id == Model.UserId ? "selected" : null)">
+                        @user.FullName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Select Book</label>
+            <select name="BookId" class="form-select" required>
+                @foreach (var book in ViewBag.Books)
+                {
+                    <option value="@book.Id" selected="@(book.Id == Model.BookId ? "selected" : null)">
+                        @book.Title
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Loan Date</label>
+            @* formateo de fecha necesario para que el input de tipo datetime lo reconozca *@
+            <input type="datetime-local" name="LoanDate" 
+                   value="@Model.LoanDate.ToString("yyyy-MM-ddTHH:mm")" class="form-control" required />
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-warning">Update Record</button>
+            <a href="/Loan/Index" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </form>
+</div>

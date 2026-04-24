@@ -1,0 +1,29 @@
+﻿@model LibrarySystem.Models.Book
+
+@{
+    ViewData["Title"] = "Edit Book";
+}
+
+<div class="container mt-4">
+    <h2>Edit Book</h2>
+
+    <form action="/Book/Edit" method="post" class="mt-4" style="max-width: 500px;">
+       
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Book Title</label>
+            <input type="text" name="Title" value="@Model.Title" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Author Name</label>
+            <input type="text" name="Author" value="@Model.Author" class="form-control" required />
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-warning">Update Changes</button>
+            <a href="/Book/Index" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </form>
+</div>

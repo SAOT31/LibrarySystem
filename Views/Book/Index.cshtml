@@ -1,0 +1,41 @@
+﻿@model IEnumerable<LibrarySystem.Responsive.BookResponse>
+
+@{
+    ViewData["Title"] = "Books List";
+}
+
+<div class="container mt-4">
+    <h2>Books Management</h2>
+    <a href="/Book/Create" class="btn btn-primary mb-3">Add New Book</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.IsAvailable</td>
+                <td>
+                    @* Enlace a la vista de edicion pasando el ID *@
+                    <a href="/Book/Edit/@book.Id" class="btn btn-sm btn-warning">Edit</a>
+
+                    @* Formulario para eliminar con confirmacion de seguridad *@
+                    <form action="/Book/Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@book.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this book?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

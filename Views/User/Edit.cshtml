@@ -1,0 +1,36 @@
+﻿@model LibrarySystem.Models.User
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="container mt-4">
+    <h2>Edit User Profile</h2>
+
+    <form action="/User/Edit" method="post" class="mt-4" style="max-width: 500px;">
+        @* el ID es necesario para que el controlador sepa que registro afectar *@
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text" name="FullName" value="@Model.FullName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="Email" value="@Model.Email" class="form-control" required />
+        </div>
+
+        <div class="mb-3 form-check">
+            @* checkbox para controlar si el usuario tiene multas activas *@
+            <input type="checkbox" name="HasPenalties" class="form-check-input" id="penalties" @(Model.HasPenalties ? "checked" : "") value="true" />
+            <label class="form-check-label" for="penalties">Has Active Penalties?</label>
+            <input type="hidden" name="HasPenalties" value="false" />
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-warning">Save Changes</button>
+            <a href="/User/Index" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<LibrarySystem.Responsive.LoanResponse>
+
+@{
+    ViewData["Title"] = "Loans Management";
+}
+
+<div class="container mt-4">
+    <h2>Loans Administration</h2>
+    
+    @* alertas para mostrar validaciones de multas o disponibilidad *@
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">@TempData["Message"]</div>
+    }
+
+    <a href="/Loan/Create" class="btn btn-primary mb-3">Register New Loan</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>User Name</th>
+                <th>Loan Date</th>
+                <th>Return Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loan in Model)
+            {
+                <tr>
+                    <td>@loan.BookTitle</td>
+                    <td>@loan.UserName</td>
+                    <td>@loan.LoanDate</td>
+                    <td>@loan.ReturnDate</td>
+                    <td>
+                        @* el boton de devolver desaparece si el libro ya regreso *@
+                        @if (loan.ReturnDate == "Pending")
+                        {
+                            <form action="/Loan/ReturnBook" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@loan.Id" />
+                                <button type="submit" class="btn btn-sm btn-success">Return Book</button>
+                            </form>
+                        }
+
+                        <a href="/Loan/Edit/@loan.Id" class="btn btn-sm btn-warning">Edit</a>
+
+                        <form action="/Loan/Delete" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@loan.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this record?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

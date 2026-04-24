@@ -1,0 +1,32 @@
+@* le decimos a la vista q vamos a armar un objeto Book *@
+@model LibrarySystem.Models.Book
+
+@{
+    ViewData["Title"] = "New Book";
+}
+
+<div class="container mt-4">
+    <h2>Register a New Book</h2>
+
+  
+    <form action="/Book/Create" method="post" class="mt-4" style="max-width: 400px;">
+        
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+       
+            <input type="text" name="Title" class="form-control" required autocomplete="off" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Author</label>
+            <input type="text" name="Author" class="form-control" required autocomplete="off" />
+        </div>
+
+        
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Save Book</button>
+            <a href="/Book/Index" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+        
+    </form>
+</div>

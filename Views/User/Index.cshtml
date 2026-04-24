@@ -1,0 +1,41 @@
+@model IEnumerable<LibrarySystem.Responsive.UserResponse>
+
+@{
+    ViewData["Title"] = "User Administration";
+}
+
+<div class="container mt-4">
+    <h2>Users Management</h2>
+    <a href="/User/Create" class="btn btn-primary mb-3">Register New User</a>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email Address</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.PenaltyStatus</td>
+                <td>
+                    @* redireccion al formulario de edicion *@
+                    <a href="/User/Edit/@user.Id" class="btn btn-sm btn-warning">Edit</a>
+
+                    @* eliminacion directa mediante formulario post *@
+                    <form action="/User/Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this user?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
